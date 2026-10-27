@@ -6,7 +6,7 @@
 /*   By: daparici <daparici@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/25 17:32:20 by daparici          #+#    #+#             */
-/*   Updated: 2026/10/26 21:37:25 by daparici         ###   ########.fr       */
+/*   Updated: 2026/10/27 00:16:29 by daparici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ typedef struct s_elf
     void    *adr;
     long    size;
     
-} t_elf
+} t_elf;
 
 #endif

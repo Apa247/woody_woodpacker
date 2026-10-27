@@ -6,7 +6,7 @@
 #    By: daparici <daparici@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/25 17:30:15 by daparici          #+#    #+#              #
-#    Updated: 2026/10/26 21:00:39 by daparici         ###   ########.fr        #
+#    Updated: 2026/10/27 00:52:33 by daparici         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,22 +20,20 @@ LIB_DIR = include
 LIBFT_DIR = Libft
 
 
-# Busca todos los archivos .c en el directorio src
 SRCS = $(wildcard $(SRC_DIR)/*.c) $(wildcard $(LIBFT_DIR)/*.c)
-OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
+OBJS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 # Regla para construir el objetivo final
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS) 
 
 # Regla para generar archivos objeto
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
-
-# Regla para limpiar archivos de objeto
 clean:
 	rm -f $(OBJS)
+	rm -rf $(OBJ_DIR)
 
 # Regla para limpiar completamente todo
 fclean: clean
