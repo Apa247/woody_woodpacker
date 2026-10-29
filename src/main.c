@@ -6,7 +6,7 @@
 /*   By: daparici <daparici@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/25 17:31:36 by daparici          #+#    #+#             */
-/*   Updated: 2026/10/27 02:03:22 by daparici         ###   ########.fr       */
+/*   Updated: 2026/10/28 22:12:42 by daparici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void handle_error(char *msg)
 int woody_woodpacker(char *filename)
 {
     int     fd;
+    int     ret;
     off_t   size;
     void    *addr;
     
@@ -38,9 +39,9 @@ int woody_woodpacker(char *filename)
     }
     else if(size == 0)
     {
-        handle_error("archivo vacío");
+        fprintf(stderr, "woody_woodpacker: archivo vacio\n");
         close(fd);
-        return(errno);
+        return(EXIT_FAILURE);
     }
     addr = mmap(NULL, size, PROT_READ, MAP_PRIVATE, fd, 0);
     if (addr == MAP_FAILED)
@@ -49,12 +50,18 @@ int woody_woodpacker(char *filename)
         close(fd);
         return(errno);
     }
-    
-    if (close(fd) == -1)
+    if (size < sizeof(Elf64_Ehdr))
     {
-        handle_error("close");
-        return errno;
+        fprintf(stderr, "woody_woodpacker: archivo demasiado pequeño\n");
+        munmap(addr, size);
+        return EINVAL;
     }
+    ret = check_file(addr);
+	if (ret == ET_EXEC || ret == ET_DYN)
+		ret = 0;
+    else
+        
+    close(fd);
     return errno;
 }
 
