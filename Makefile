@@ -6,13 +6,13 @@
 #    By: daparici <daparici@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/10/25 17:30:15 by daparici          #+#    #+#              #
-#    Updated: 2026/10/27 00:52:33 by daparici         ###   ########.fr        #
+#    Updated: 2026/10/30 16:20:26 by daparici         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Variables de configuración
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -I./include -I./Libft
+CFLAGS = -Wall -Wextra -Werror -g -O0 -gdwarf-4 -I./include -I./Libft
 SRC_DIR = src
 OBJ_DIR = obj
 TARGET = woody_woodpacker

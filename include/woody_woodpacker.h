@@ -6,7 +6,7 @@
 /*   By: daparici <daparici@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/25 17:32:20 by daparici          #+#    #+#             */
-/*   Updated: 2026/10/27 00:16:29 by daparici         ###   ########.fr       */
+/*   Updated: 2026/10/30 16:07:50 by daparici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 #include <openssl/rand.h>
 #include <errno.h>
 #include <elf.h>
-#include "libft.h"
 
 typedef struct s_elf
 {
@@ -32,5 +31,11 @@ typedef struct s_elf
     long    size;
     
 } t_elf;
+
+// Error
+void handle_error(char *msg);
+
+//Check elf file
+int check_file(void *addr);
 
 #endif

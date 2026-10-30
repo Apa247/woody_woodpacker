@@ -6,7 +6,7 @@
 /*   By: daparici <daparici@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/25 17:31:36 by daparici          #+#    #+#             */
-/*   Updated: 2026/10/28 22:12:42 by daparici         ###   ########.fr       */
+/*   Updated: 2026/10/30 16:19:19 by daparici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void handle_error(char *msg)
 
 int woody_woodpacker(char *filename)
 {
-    int     fd;
-    int     ret;
-    off_t   size;
+    int             fd;
+    int             ret;
+    unsigned long   size;
     void    *addr;
     
     fd = open(filename, O_RDONLY);
@@ -54,13 +54,19 @@ int woody_woodpacker(char *filename)
     {
         fprintf(stderr, "woody_woodpacker: archivo demasiado pequeño\n");
         munmap(addr, size);
+        close(fd);
         return EINVAL;
     }
     ret = check_file(addr);
 	if (ret == ET_EXEC || ret == ET_DYN)
 		ret = 0;
     else
-        
+    {
+        fprintf(stderr, "woody_woodpacker: debe ser un archivo ELF de 64 bits\n");
+        munmap(addr, size);
+        close(fd);
+    }
+    munmap(addr, size);
     close(fd);
     return errno;
 }
